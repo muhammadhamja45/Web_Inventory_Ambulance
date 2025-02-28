@@ -1,0 +1,42 @@
+CREATE TABLE pengguna (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin') DEFAULT 'admin'
+);
+
+CREATE TABLE alat_kesehatan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    deskripsi TEXT,
+    foto_url VARCHAR(255)
+);
+
+CREATE TABLE stok (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    alat_kesehatan_id INT,
+    jumlah INT NOT NULL,
+    FOREIGN KEY (alat_kesehatan_id) REFERENCES alat_kesehatan(id)
+);
+
+CREATE TABLE unit_ambulans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE transaksi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    unit_ambulans_id INT,
+    tanggal DATE NOT NULL,
+    FOREIGN KEY (unit_ambulans_id) REFERENCES unit_ambulans(id)
+);
+
+CREATE TABLE transaksi_detail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transaksi_id INT,
+    alat_kesehatan_id INT,
+    jumlah INT NOT NULL,
+    FOREIGN KEY (transaksi_id) REFERENCES transaksi(id),
+    FOREIGN KEY (alat_kesehatan_id) REFERENCES alat_kesehatan(id)
+);
