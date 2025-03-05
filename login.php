@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && $password === $user['password']) { // Perubahan di sini: Bandingkan password tanpa hashing
         // Set session variables
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['nama'];

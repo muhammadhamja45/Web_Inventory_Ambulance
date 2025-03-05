@@ -4,7 +4,7 @@ include '../config/database.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama = $_POST['nama'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password']; // Tidak menggunakan password_hash
 
     $sql = "INSERT INTO pengguna (nama, email, password) VALUES (?, ?, ?)";
     $stmt = $pdo->prepare($sql);
